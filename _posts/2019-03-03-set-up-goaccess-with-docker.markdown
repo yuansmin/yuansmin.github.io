@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "Goaccess with Nginx"
+title:  "Set Up Goaccess with Docker"
 date:   2019-03-03 14:25:00 +0800
-categories: [log analysis]
+categories: [log, analysis]
 tags: [docker, goaccess]
+description: This is my awesome writeup of this fantastic thing
 ---
 本文记录如何使用 docker 快速搭建一套 Goaccess 环境。
 
