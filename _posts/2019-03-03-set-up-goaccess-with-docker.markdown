@@ -9,13 +9,13 @@ tags: [docker, goaccess]
 
 [Goaccess](https://github.com/allinurl/goaccess) 是一个简单、轻量、好用的 nginx 日志分析工具，日常简单分析还是不错的。[Goaccess 文档](https://goaccess.io)
 
-准备环境：
+#### 准备环境： 
 {% highlight text %}
     1. 任何安装有 docker >= 17.03 的主机
     2. docker-compose >= 1.21.0
 {% endhighlight %}
 
-1. 创建如下目录结构
+#### 1. 创建如下目录结构
 {% highlight text %}
 goaccess/
 ├── data
@@ -34,7 +34,7 @@ goaccess/
 
 /report/index.html: 分析出的报告文件，通过 nginx 访问
 
-2. 拷贝如下配置到 goaccess.conf
+#### 2. 拷贝如下配置到 goaccess.conf
 {% highlight text %}
 log-format COMMON
 log-file /srv/data/access.log
@@ -42,7 +42,7 @@ output /srv/report/index.html
 real-time-html true # 实时分析
 {% endhighlight %}
 
-3. 拷贝如下配置到 docker-compose.yml，并替换 \<path\> 为 goaccess 目录路径
+#### 3. 拷贝如下配置到 docker-compose.yml，并替换 \<path\> 为 goaccess 目录路径
 {% highlight yaml %}
 version: "2.2"
 services:
@@ -66,8 +66,8 @@ services:
     - 7891:80
 {% endhighlight %}
 
-4. 拷贝带分析的 nginx 日志到 /data/access.log，或直接实时输出日志到该文件。
-5. 启动
+#### 4. 拷贝带分析的 nginx 日志到 /data/access.log，或直接实时输出日志到该文件。
+#### 5. 启动
 {% highlight shell %}
 cd /<path>/goaccess  # cd 到 goaccess 主目录
 docker-compose up
