@@ -40,4 +40,34 @@ import (
 )
 {% endhighlight %}
 
-那 *.go 文件中的 `package` 是为何用？难道仅仅是为了与同一文件夹内的其他 go 文件的 `package` 保持一致？当然不是，这个是 package declaration, 用于在导入时建立 package 引用变量(用文件夹名不行吗？？？不太懂为什么这样设计)
+那 *.go 文件中的 `package` 是为何用？难道仅仅是为了与同一文件夹内的其他 go 文件的 `package` 保持一致？当然不是，这个是 package declaration, 用于在导入时建立 package 引用变量(用文件夹名不行吗？？？不太懂为什么这样设计)，导入后使用该 package 则是使用该 package name，而不是导入路径。如： foo 中 package 定义为 otherFoo
+{% highlight go %}
+package otherFoo
+
+func Hello() {
+    // xxx
+}
+// ...
+{% endhighlight %}
+
+则应该这样导入和使用
+{% highlight go %}
+import (
+    "foo" // = otherFoo "foo", 默认的引用是 package name
+)
+
+func main() {
+    otherFoo.Hello()  // package name 是 otherFoo
+}
+{% endhighlight %}
+
+也可以在导入时定义一个新的引用
+{% highlight go %}
+import (
+    foo "foo" // 建立 package 的引用 foo
+)
+
+func main() {
+    foo.Hello()
+}
+{% endhighlight %}
