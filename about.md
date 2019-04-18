@@ -4,12 +4,14 @@ title: About
 permalink: /about/
 ---
 
-野生程序员
+用洋文装个逼
 
-目前从事容器云平台开发工作
+programer from wild
 
-常用 python，写过一些 golang
+work for a conatiner platform
 
-日常使用 docker、kubernetes，docker registry(distribution) 玩得较多
+python first in the past，now trying go
+
+work with docker, kubernetes，docker registry(distribution)
 
 [Github](https://github.com/yuansmin)
