@@ -12,7 +12,7 @@ description: 生产环境 dockerd 内存泄漏？想重启 dockerd 又怕重启�
 
 #### 1. 配置 docker daemon 参数，编辑文件 /etc/docker/daemon.json，添加如下配置
 
-```
+``` json
 {
     "live-restore": true
 }
@@ -20,18 +20,19 @@ description: 生产环境 dockerd 内存泄漏？想重启 dockerd 又怕重启�
 
 #### 2. dockerd reload 配置(不会重启 dockerd，修改配置真好用)
 
-```
+``` shell
 kill -SIGHUP $(pidof dockerd) # 给 dockerd 发送 SIGHUP 信号，dockerd 收到信号后会 reload 配置
 ```
 
 #### 3. 检查是否配置成功
-```
+``` shell
 docker info | grep -i live
 # 应该能看到 Live Restore Enabled: true
 ```
 
 #### 4. 重启 docker，此时重启 docker 不会重启容器
-```
+
+``` shell
 systemctl restart docker
 ```
 
@@ -41,5 +42,9 @@ systemctl restart docker
 1. dockerd 内存泄漏。 docker 17.06 之前容易出现这个问题，再也不怕 dockerd 吃掉所有内存又不敢重启了～
 
 docker 可以不重启 reload 配置，使用 SIGHUP 信号，就像 nginx -s reload，挺好用的。
+
+#### 补充：
+
+如果有容器挂载了 docker.sock 文件，重启后工作可能会不正常，需要重启该容器。原因是重启 dockerd 后 docker.sock 文件的 inode 变了，详情可参考 [docker 单文件挂载的坑]({% post_url 2019-04-28-docker-mount-single-file %})
 
 参考：docker 文档 [https://docs.docker.com/config/containers/live-restore/](https://docs.docker.com/config/containers/live-restore/)
